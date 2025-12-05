@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Add Product</title>
+  <link rel="stylesheet" href="css/admin-product.css">
+</head>
+<body>
+
+<nav class="card">
+  <h2>Admin Panel</h2>
+  <a href="add-product.html">Add Product</a>
+  <button class="btn btn-outline" onclick="adminLogout()">Logout</button>
+</nav>
+
+<div class="container card" style="max-width:500px;margin:auto;margin-top:40px;">
+  <h2>Add Product</h2>
+
+  <form id="productForm">
+    <input type="text" id="pName" placeholder="Product Name" required>
+    <input type="text" id="pImage" placeholder="Image URL" required>
+    <input type="number" id="pPrice" placeholder="Price" required>
+    <textarea id="pDesc" placeholder="Description"></textarea>
+
+    <button class="btn btn-primary" type="submit">Add Product</button>
+  </form>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/admin.js"></script>
+
+<script>
+  document.getElementById("productForm").addEventListener("submit", addProduct);
+</script>
+
+</body>
+</html>
