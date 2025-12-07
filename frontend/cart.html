@@ -4,7 +4,7 @@
 </head>
 <body>
 
-  <!-- User navbar -->
+  
   <nav class="card" aria-label="user-nav">
     <div class="brand"><div class="logo">M</div><div>MensWear</div></div>
     <div class="searchbar" style="margin-left:12px;"><input id="cartSearch" placeholder="Search..."><button id="cartSearchBtn" class="btn btn-outline">Search</button></div>
@@ -26,6 +26,8 @@
       const q = (document.getElementById('cartSearch').value || '').trim();
       window.location = 'products.html' + (q ? '?q=' + encodeURIComponent(q) : '');
     });
+    loadCart();
+
   </script>
 </body>
 </html>

@@ -41,7 +41,9 @@
         </div>
 
         <div style="margin-top:16px">
-          <button id="payBtn" class="btn btn-primary">Pay</button>
+          <button id="payBtn" class="btn btn-primary">PayOnline</button>
+          <button id="payCashBtn" class="btn btn-primary">Pay by Cash</button>
+          
         </div>
       </div>
     </div>
@@ -50,59 +52,7 @@
   <footer class="footer">© MensWear</footer>
 
   <script src="js/api.js"></script>
-
-  <script>
-
-    
-    async function loadCartItems() {
-      const cart = await API.cart.get();
-
-      return cart.items.map(i => ({
-        product: i.product._id,
-        quantity: i.quantity
-      }));
-    }
-
-    document.getElementById("payBtn").addEventListener("click", async () => {
-
-      const fullname = document.getElementById("fullname").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const address = document.getElementById("address").value.trim();
-
-      
-      if (!fullname || !phone || !address) {
-        alert("Please fill all fields before proceeding.");
-        return;
-      }
-
-      try {
-        
-        const items = await loadCartItems();
-
-        if (!items.length) {
-          alert("Your cart is empty.");
-          return;
-        }
-
-        
-        const cart = await API.cart.get();
-        const totalAmount = cart.items.reduce(
-          (sum, i) => sum + i.product.price * i.quantity,
-          0
-        );
-
-        
-
-        
-        window.location = "orderCompleted.html";
-
-      } catch (err) {
-        console.error("Checkout Error:", err);
-        alert(err.message || "Unable to process order. Try again.");
-      }
-    });
-
-  </script>
+  <script src="js/checkout.js"></script>
 
 </body>
 </html>

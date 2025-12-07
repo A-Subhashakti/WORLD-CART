@@ -12,7 +12,7 @@ const adminRoutes = require("./routes/admin");
 const cartRoutes = require("./routes/cart");
   
 const authMiddleware = require("./middleware/auth");
-
+const orderRoutes = require("./routes/orderRoutes"); 
 const app = express();
 
 
@@ -40,7 +40,7 @@ app.use("/api/products", productRoutes);
 
 
 app.use("/api/admin", adminRoutes);
-
+app.use("/api/orders", orderRoutes); 
 
 app.use("/api/cart", authMiddleware, cartRoutes);
 

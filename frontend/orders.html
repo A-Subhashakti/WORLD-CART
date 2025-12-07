@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My Orders</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <nav class="card">
+    <div class="brand">
+      <div class="logo">M</div>
+      <div>MensWear</div>
+    </div>
+    <div class="header-actions" style="margin-left:auto">
+      <a href="products.html">Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="profile.html">Profile</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>My Orders</h2>
+
+    <div id="ordersRoot"></div>
+  </div>
+
+  <script src="js/api.js"></script>
+
+ <script>
+async function loadOrders() {
+  const root = document.getElementById("ordersRoot");
+
+  try {
+   
+    const orders = await API.orders.getMy();
+
+    if (!orders.length) {
+      root.innerHTML = "<p>No orders found.</p>";
+      return;
+    }
+
+    root.innerHTML = orders
+      .map(o => `
+        <div class="card" style="margin-bottom:15px; padding:10px; border:1px solid #ccc; border-radius:5px;">
+          <h3>Order #${o._id}</h3>
+          <div class="small">Placed: ${new Date(o.createdAt).toLocaleString()}</div>
+          <div class="small">Status: <b>${o.status}</b></div>
+
+          <ul style="margin-top:10px; padding-left:20px;">
+            ${o.items.map(i => `
+              <li>${i.product.name} × ${i.quantity}</li>
+            `).join("")}
+          </ul>
+
+          <div class="price" style="margin-top:10px; font-weight:bold;">
+            Total: ₹${o.totalAmount}
+          </div>
+        </div>
+      `)
+      .join("");
+
+  } catch (err) {
+    root.innerHTML = `<p>Error loading orders: ${err.message}</p>`;
+  }
+}
+
+
+loadOrders();
+</script>
+
+</body>
+</html>

@@ -46,22 +46,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     
     listEl.addEventListener('click', async (ev) => {
-      if (ev.target && ev.target.matches('.add-now')) {
-        const id = ev.target.dataset.id;
+  if (ev.target && ev.target.matches('.add-now')) {
+    const id = ev.target.dataset.id;
 
-        try {
-          await API.cart.add({ productId: id, qty: 1 });
-          alert('Added to cart');
-          window.location = 'cart.html';
-        } catch (err) {
-          alert(err.message || 'Add failed');
+    try {
+      
+      await API.cart.add({ productId: id, quantity: 1 });
 
-        
-          if (err.message?.toLowerCase().includes('token'))
-            window.location = 'login.html';
-        }
-      }
-    });
+      alert('Added to cart');
+      window.location = 'cart.html';
+    } catch (err) {
+      alert(err.message || 'Add failed');
+
+      if (err.message?.toLowerCase().includes('token'))
+        window.location = 'login.html';
+    }
+  }
+});
+
 
   } catch (err) {
     listEl.innerHTML = `<p class="small">Error: ${err.message || JSON.stringify(err)}</p>`;

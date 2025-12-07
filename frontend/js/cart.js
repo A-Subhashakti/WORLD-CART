@@ -50,9 +50,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
 
         <div>
-          <button class="btn btn-outline removeBtn" data-id="${p._id}">
-            Remove
-          </button>
+          <button class="removeBtn" data-id="${item.product._id}">
+  Remove
+</button>
+
         </div>
       `;
 
@@ -79,18 +80,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     
     container.addEventListener("click", async (ev) => {
-      if (ev.target && ev.target.matches(".removeBtn")) {
-        ev.preventDefault();
-        const id = ev.target.dataset.id;
+  if (ev.target && ev.target.matches(".removeBtn")) {
+    ev.preventDefault();
 
-        try {
-          await API.cart.remove(id);
-          location.reload();
-        } catch (err) {
-          alert(err.message || "Error removing item");
-        }
-      }
-    });
+    
+    const productId = ev.target.dataset.id;
+
+    console.log("Removing product:", productId);
+
+    try {
+  await API.cart.remove(productId);
+
+  
+  ev.target.closest(".card").remove(); 
+  location.reload(); 
+} catch (err) {
+  console.error("Remove Error:", err);
+  alert(err.message || "Error removing item");
+}
+
+  }
+});
 
     
     container.addEventListener("click", async (ev) => {
